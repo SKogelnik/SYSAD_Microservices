@@ -25,6 +25,11 @@ app.post('/poi', async (req, res) => {
     res.send(poi);
 })
 
+app.delete('/poi/:poiId', async (req, res) => {
+    const pois = await poiRequester.send({ type: 'delete poi', poiId:req.params.poiId })
+    res.send(pois);
+})
+
 app.get('/trip', async (req, res) => {
     const trips = await tripRequester.send({ type: 'list'})
     res.send(trips);

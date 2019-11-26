@@ -14,9 +14,9 @@ async function main() {
     console.log("Created POI:")
     console.log(poiCreateResponse.data)
 
-    // const deletedPoi = await axios.delete('http://localhost:3000/poi/1')
-    // console.log("Deleted POI")
-    // console.log(deletedPoi.data)
+    const deletedPoi = await axios.delete('http://localhost:3000/poi/1')
+    console.log("Deleted POI")
+    console.log(deletedPoi.data)
 }
 
 main()

@@ -24,3 +24,16 @@ tripsResponder.on('create trip', req =>
     deliveries.push(trip)
     return Promise.resolve(trip)
 })
+
+tripsResponder.on('remove poi', req => 
+{
+    const poiId = parseInt(req.poiId)
+    trips = trips.map(trip =>( {
+            ...trip,
+            pois:trip.pois.filter(poiId => poiId !== this.poiId)
+        })
+    )
+    
+    console.log("trips",trips)
+    return Promise.resolve();
+})
