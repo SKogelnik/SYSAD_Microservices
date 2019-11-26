@@ -1,0 +1,43 @@
+version: '3'
+services:
+  lb:
+    image: dockercloud/haproxy
+    links:
+      - api-gateway
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+      - 443:443
+    restart: on-failure
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: api-gateway
+    restart: on-failure
+    environment:
+      - VIRTUAL_HOST=api-gateway.app.com
+    ports:
+      - 3000:3000
+    volumes:
+      - ./api-gateway:/app/src
+
+  poi-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: poi-service
+    restart: on-failure
+    volumes:
+      - ./poi-service:/app/src
+
+  trip-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: trip-service
+    restart: on-failure
+    volumes:
+      - ./trip-service:/app/src
